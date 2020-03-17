@@ -1,0 +1,46 @@
+﻿@{
+        ViewBag.Title = "ConfirmDelete";
+}
+
+@model IEnumerable<Carousel.Models.PostDataCarousel>
+
+    <body class="bg-light">
+        <div class="container">
+            <div class="py-5 text-center">
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 order-md-2 mb-4">
+
+                </div>
+                <div class="col-md-8 order-md-1">
+                    <h4 class="mb-3">Confirm Delete Post</h4>
+                    @foreach (var eachPostData in ViewBag.ListOfPosts as List<Carousel.Models.PostDataCarousel>)
+                    {
+                        using (Html.BeginForm("ConfirmedDelete", "Post", new { postID = eachPostData.Aaz01 }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <input type="hidden" placeholder="@eachPostData.Aaz01" />
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Aaz02">CarouselTitle</label>
+                                <input type="text" class="form-control" placeholder="@eachPostData.Aaz02" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="Aaz03">CarouselLink</label>
+                                <textarea class="form-control" placeholder="@eachPostData.Aaz03" rows="5"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Delete" onclick="@("window.location.href='" + @Url.Action("DeleteConfirmed", "Post",new { postID=eachPostData.Aaz01}) + "'");" />
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </body>
